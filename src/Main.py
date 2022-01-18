@@ -1,14 +1,25 @@
 
 import discord
 import random
+from discord.ext.commands import Bot
+from discord.ext import commands
 
+PREFIX = ('!')
+bot = commands.Bot(command_prefix=PREFIX)
 client = discord.Client()
+
 loadouts = ["Pistolboi", "Gigachad", "Journalist", "Halexboi"]
 maps = ["Woods", "Factory", "Labs", "Shoreline", "Customs", "Lighthouse", "Reserve"]
 user = discord.utils.get(client.users, name = "USERNAME", discriminator='1234')
 
+
+@client.event
+async def on_member_join(member):
+    print(f'{member} has joined Moution Apteekki!')
+
 @client.event
 async def on_ready():
+    await client.change_presence(status=discord.Status.idle, activity=discord.Game('Escape From Tarkov'))
     print('{0.user} logging in'.format(client))
 
 @client.event
@@ -47,7 +58,5 @@ async def on_message(message):
 
     if message.content.startswith('!curse'):
         await message.channel.send(random.choice(loadouts))
-
-
 
 client.run('OTMyMzg3ODg4MTY1OTUzNTM2.YeSP4w.OMavdtt8-ldMg4a32-C4iNW4S1A')
