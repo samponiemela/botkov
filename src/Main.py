@@ -12,6 +12,8 @@ loadouts = ["Pistolboi", "Gigachad", "Journalist", "Halexboi"]
 maps = ["Woods", "Factory", "Labs", "Shoreline", "Customs", "Lighthouse", "Reserve"]
 user = discord.utils.get(client.users, name = "USERNAME", discriminator='1234')
 
+factions = ["Scav", "PMC"]
+
 
 @client.event
 async def on_member_join(member):
@@ -19,7 +21,7 @@ async def on_member_join(member):
 
 @client.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.idle, activity=discord.Game('Escape From Tarkov'))
+    await client.change_presence(status=discord.Status.online, activity=discord.Game('Escape From Tarkov'))
     print('{0.user} logging in'.format(client))
 
 @client.event
@@ -52,6 +54,17 @@ async def on_message(message):
 
     if message.content.startswith('!taskitems'):
         await message.channel.send(file=discord.File('QuestItemRequirements.png'))
+
+    if message.content.startswith('!raid'):
+        factions2 = random.choice(factions)
+        await message.channel.send(random.choice(factions))
+        if factions2 == 'Scav':
+            await message.channel.send(file=discord.File('cartoons-fox.gif'))
+        else:
+            await message.channel.send(file=discord.File('tomppa.gif'))
+
+    if message.content.startswith('!eft'):
+        await message.channel.send(file=discord.File('escape-from-tarkov-eft.gif'))
 
     if message.content.startswith('!rmap'):
         await message.channel.send(random.choice(maps))
